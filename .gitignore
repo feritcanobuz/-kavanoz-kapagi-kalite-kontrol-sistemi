@@ -1,0 +1,22 @@
+# Python geçici dosyaları
+__pycache__/
+*.pyc
+
+# Token ve geçici dosyalar
+.token_seed
+.token_seed.lock
+
+# Editor ayar dosyaları
+.vscode/
+*.swo
+*.swp
+*.idea/
+
+# Ortam dosyaları
+.env
+.venv/
+venv/
+
+# Sistem dosyaları
+.DS_Store
+Thumbs.db

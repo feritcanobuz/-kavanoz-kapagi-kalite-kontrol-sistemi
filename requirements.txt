@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+tensorflow
+opencv-python-headless
+numpy
+scikit-learn
+matplotlib
+pandas
+streamlit
+requests
+pillow
+numpy
+pandas
+python-multipart
+
