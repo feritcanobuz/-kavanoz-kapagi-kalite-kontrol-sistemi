@@ -1,6 +1,6 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
-from model_loader import load_model_and_predict  # Bu senin utils fonksiyonun
+from model_loader import load_model_and_predict  # utils fonksiyonu
 from typing import List
 import uvicorn
 

@@ -22,4 +22,4 @@ model = load_model(os.path.join(DATA_DIR, "model_final_cnn.keras"))
 
 # === TEST SKORLARI ===
 loss, acc = model.evaluate(test_ds)
-print(f"\n🎯 Test Loss: {loss:.4f} — Test Accuracy: {acc:.4f}")
+print(f"\n Test Loss: {loss:.4f} — Test Accuracy: {acc:.4f}")

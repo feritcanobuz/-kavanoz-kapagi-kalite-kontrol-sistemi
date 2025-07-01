@@ -55,7 +55,7 @@ QUALITY_CONTROL_PROJECT/
 │   ├── image_cleaner.py
 │   ├── kontrol.py
 │   ├── split_dataset.py
-│   └── split_train_to_test.py
+│   
 │
 ├── screenshots/                # README için uygulama arayüz görselleri
 │   ├── ss1.png
