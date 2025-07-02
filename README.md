@@ -24,10 +24,10 @@ QUALITY_CONTROL_PROJECT/
 │   │   └── kusursuz/
 │   ├── raw/                    # Ham verinin orijinal hali
 │   ├── split/                  # Eğitim/val/test ayrımı yapılmış veri seti
-│   │   ├── test/
-│   │   ├── train/
-│   │   └── val/
-│   └── model_final_cnn.keras   # Eğitilmiş CNN model dosyası
+│       ├── test/
+│       ├── train/
+│       ├── val/
+│       ├── model_final_cnn.keras   # Eğitilmiş CNN model dosyası
 │
 ├── demo_images/                # Arayüzde test etmek için örnek görseller
 │
@@ -43,18 +43,18 @@ QUALITY_CONTROL_PROJECT/
 │   └── streamlit_app.py        # Ana Streamlit uygulaması
 │
 ├── model/                      # Model eğitimi ve değerlendirme dosyaları
-│   ├── evaluate_model.py
-│   ├── evaluate_on_test.py
-│   ├── test_input_shape.py
-│   ├── train_keras.py
+│   ├── evaluate_model.py       # Eğitilen modelin doğrulama seti üzerinde detaylı değerlendirilmesi (confusion matrix, ROC, AUC, vs.)
+│   ├── evaluate_on_test.py     # Modelin test seti üzerinde genel doğruluk (accuracy) ve kayıp (loss) skorlarının hesaplanması
+│   ├── test_input_shape.py     # Eğitimli modelin beklediği giriş boyutunu (input shape) terminale yazdırır.
+│   ├── train_keras.py          # CNN mimarili modeli eğitir, loss grafiğini çizer ve modeli .keras formatında kaydeder.
 │   
 │
 ├── preprocessing/              # Görsel işleme , veri kontrolü ve etiketleme scriptleri
-│   ├── crop_and_label.py
-│   ├── excelanaliz.py
-│   ├── image_cleaner.py
-│   ├── kontrol.py
-│   ├── split_dataset.py
+│   ├── crop_and_label.py       # Etiketli koordinatlara göre ham görselleri kırpar ve 'kusurlu' / 'kusursuz' olarak sınıflandırır.
+│   ├── excelanaliz.py          # Etiketli CSV dosyasını analiz eder; sınıf dağılımı, koordinat bilgileri ve veri yapısını özetler.
+│   ├── image_cleaner.py        # Kırpılmış görselleri grayscale + blur + 128x128 olarak yeniden boyutlandırır, 'preprocessed' klasörüne kaydeder.
+│   ├── kontrol.py              # dataset/ klasöründeki kusurlu ve kusursuz görsel sayılarını ekrana yazdırır (veri kontrolü için).
+│   ├── split_dataset.py        # preprocessed verileri %80 train / %20 val olarak ayırır ve split/ klasörüne yerleştirir
 │   
 │
 ├── screenshots/                # README için uygulama arayüz görselleri
@@ -71,8 +71,10 @@ QUALITY_CONTROL_PROJECT/
 
 Projeyi çalıştırmak için aşağıdakilerin sisteminizde kurulu olması gerekir:
 
-- [Docker](https://www.docker.com/)
+- [Docker](https://www.docker.com/products/docker-desktop/)
 - [Docker Compose](https://docs.docker.com/compose/)
+
+Windows kullanıyorsanız: WSL2 ve Docker Desktop kurulumlarının tamamlanmış olması gerekir. Kurulum sırasında WSL2 entegrasyonu etkinleştirilmiş olmalıdır.
 
 ---
 
@@ -90,23 +92,14 @@ docker-compose up                # API ve Streamlit arayüzünü başlat
 
 ##  NOTLAR
 
-- Docker build sırasında `python:3.10` veya benzeri base image'lar ile ilgili credential hataları (`"docker-credential-desktop" bulunamadı`) alıyorsanız, bu hata sisteminizde Docker ile ilişkili credential helper'ın eksik olmasından kaynaklanmaktadır.
+- Eğer docker login işlemi sırasında "unauthorized: incorrect username or password" hatası alırsanız, Docker Hub hesabınızla tarayıcı üzerinden oturum açtıktan sonra, Personal Access Token oluşturup terminalde kullanıcı adı olarak Docker Hub kullanıcı adınızı, şifre olarak ise token'ı girmeniz gerekir.
 
-- Bu hatayı almamak için önerilen çözümler:
+- Uygulama başarıyla ayağa kalktıktan sonra aşağıdaki adreslerden erişebilirsiniz:
 
-  1. **Alternatif image kullanımı (tavsiye edilir):**  
-     Dockerfile içinde `FROM python:3.10` yerine aşağıdakilerden biri kullanılabilir:  
-     - `python:3.10-buster`  
-     - `python:3.10-alpine`
+   • API: http://localhost:8000/docs
 
-  2. **Credential helper bileşenini sisteminize yüklemek:**  
-     Docker Desktop > Settings > Resources > Experimental özelliklerinden kontrol edebilirsiniz.
+   • Streamlit arayüzü: http://localhost:8501
 
-- Ancak bu hatayı almanız çalışmayı engellemez; `docker-compose up` komutu ile container'lar başlatıldığında sistem çalışır durumda olacaktır. Uygulama:
-
-  -  [http://localhost:8501](http://localhost:8501) — Streamlit arayüzü  
-  -  [http://localhost:8000/docs](http://localhost:8000/docs) — FastAPI Swagger dokümantasyonu 
-  
   ```
 
 

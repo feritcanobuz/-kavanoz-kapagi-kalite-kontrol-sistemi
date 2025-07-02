@@ -9,7 +9,5 @@ pandas
 streamlit
 requests
 pillow
-numpy
-pandas
 python-multipart
 
